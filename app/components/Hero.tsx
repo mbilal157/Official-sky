@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen text-center bg-white">
+    <section className="flex flex-col items-center justify-center min-h-screen text-center bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat">
       {/* Logo */}
       <div className="w-20 h-20 mb-6">
         <Image
