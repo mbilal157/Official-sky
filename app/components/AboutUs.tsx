@@ -14,9 +14,9 @@ export default function AboutUs() {
         {/* Left Side - Image */}
         <div className="relative group overflow-hidden rounded-2xl shadow-lg">
           <Image
-            src="/images/about-us.jpg"
+            src="/images/about.jpg"
             alt="About Skyline Production"
-            width={1200} // pick a width close to your design
+            width={1000} // pick a width close to your design
             height={400} // height to match aspect ratio
             className="w-full h-[400px] object-cover transform group-hover:scale-110 transition-transform duration-700"
           />

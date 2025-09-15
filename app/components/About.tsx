@@ -60,7 +60,7 @@ export default function FeaturesSection() {
         {/* Right Column - Image with Overlapping Badge */}
         <div className="relative flex justify-center">
           <Image
-            src="/images/aboutphoto.png" // ✅ correct
+            src="/images/whyus.jpg"
             alt="Features"
             width={500}
             height={300}

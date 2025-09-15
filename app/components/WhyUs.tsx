@@ -113,7 +113,7 @@ export default function WhyUs() {
             ) : (
               <Image
                 src="/images/whyus.jpg"
-                alt="Why choose solar energy"
+                alt="Why choose SkyLine"
                 fill
                 className="object-cover rounded-lg shadow-xl"
                 sizes="(max-width: 780px) 100vw, 50vw"

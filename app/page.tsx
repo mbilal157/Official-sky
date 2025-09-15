@@ -14,8 +14,8 @@ export default function Home() {
       <main className="pt-1">
         {" "}
         <HeroSection />
-        <FeaturesSection />
         <AboutUs />
+        <FeaturesSection />
         <CreativeServices />
         <Portfolio />
         <ContactUs />

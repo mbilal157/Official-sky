@@ -2,69 +2,68 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-// Portfolio data
 const portfolioItems = [
   {
     id: 1,
     category: "Graphic Design",
-    title: "Brand Identity Design",
-    subtitle: "Complete brand identity for a tech startup",
+    title: "Logos",
+    subtitle: "Unique and memorable logo designs for brands",
     image: "/images/whyus.jpg",
   },
   {
     id: 2,
-    category: "Web Development",
-    title: "E-commerce Platform",
-    subtitle: "Full-stack e-commerce solution with payment integration",
+    category: "Graphic Design",
+    title: "Posters and Banners",
+    subtitle: "Eye-catching posters and banners for promotions",
     image: "/images/whyus.jpg",
   },
   {
     id: 3,
-    category: "Filmography",
-    title: "Documentary Series",
-    subtitle: "Award-winning documentary on climate change",
+    category: "Video Editing",
+    title: "Instagram Post",
+    subtitle: "Engaging edits tailored for Instagram posts",
     image: "/images/whyus.jpg",
   },
   {
     id: 4,
-    category: "Video Graphy",
-    title: "Wedding Highlights",
-    subtitle: "Cinematic wedding video with drone footage",
+    category: "Video Editing",
+    title: "Stories and Highlights",
+    subtitle: "Dynamic video stories and highlight reels",
     image: "/images/whyus.jpg",
   },
   {
     id: 5,
     category: "Video Editing",
-    title: "Commercial Ad Campaign",
-    subtitle: "30-second TV commercial for a national brand",
+    title: "Reels and Shorts",
+    subtitle: "Trendy reels and shorts with creative cuts",
     image: "/images/whyus.jpg",
   },
   {
     id: 6,
-    category: "Creative media solutions",
+    category: "Social Media Design",
     title: "Social Media Campaign",
-    subtitle: "Multi-platform campaign for a fashion brand",
+    subtitle: "Complete design sets for impactful campaigns",
     image: "/images/whyus.jpg",
   },
   {
     id: 7,
-    category: "Graphic Design",
-    title: "Packaging Design",
-    subtitle: "Sustainable packaging for organic products",
+    category: "Social Media Design",
+    title: "YouTube Thumbnails",
+    subtitle: "Attention-grabbing thumbnails to boost clicks",
     image: "/images/whyus.jpg",
   },
   {
     id: 8,
-    category: "Web Development",
-    title: "Mobile App UI",
-    subtitle: "User interface for a fitness tracking application",
+    category: "Social Media Design",
+    title: "Facebook and LinkedIn Banners",
+    subtitle: "Professional banners for social media branding",
     image: "/images/whyus.jpg",
   },
   {
     id: 9,
-    category: "Filmography",
-    title: "Short Film",
-    subtitle: "Dramatic short film selected for international festivals",
+    category: "Graphic Design",
+    title: "Business Cards",
+    subtitle: "Modern and professional business card designs",
     image: "/images/whyus.jpg",
   },
 ];
@@ -72,11 +71,8 @@ const portfolioItems = [
 const categories = [
   "All",
   "Graphic Design",
-  "Web Development",
-  "Filmography",
-  "Video Graphy",
+  "Social Media Design",
   "Video Editing",
-  "Creative media solutions",
 ];
 
 export default function Portfolio() {
