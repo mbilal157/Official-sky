@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { MaskContainer } from "./ui/svg-mask-effect";
 
 const HeroSection = () => {
   const { theme, systemTheme } = useTheme();
@@ -9,7 +10,7 @@ const HeroSection = () => {
   return (
     <section className="hero-background flex flex-col items-center justify-center min-h-screen text-center transition-colors duration-300">
       {/* Logo */}
-      <div className="w-20 h-20 mb-6">
+      <div className="w-30 h-25 mb-6">
         <Image
           src="/images/logo.png"
           alt="logo"
@@ -30,16 +31,21 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Heading - Use your CSS variables */}
-      <h1 className="text-3xl md:text-3xl font-bold mb-4 text-[hsl(var(--foreground))]">
-        Beyond <span className="text-[#0098ff]">Limits</span>, Above The Skyline
-        Of <span className="text-[#0098ff]">Creativity</span>
-      </h1>
-
-      {/* Subheading */}
-      <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] mb-6">
-        Where ideas turn into visual masterpieces
-      </p>
+      <div className="flex h-[15rem] w-full items-center justify-center overflow-hidden">
+        <MaskContainer
+          size={100}
+          revealSize={200}
+          revealText={
+            <p className="mx-auto max-w-4xl text-center mb-2 text-4xl font-bold text-slate-600 dark:text-white">
+              Beyond <span className="text-blue-500">Limits</span>, Above The
+              Skyline Of <span className="text-blue-500">Creativity</span>
+            </p>
+          }
+          className="h-[15rem] rounded-md text-white dark:text-black"
+        >
+          Where ideas turn into visual masterpieces
+        </MaskContainer>
+      </div>
 
       {/* Buttons */}
       <div className="flex gap-4">
