@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-//import { MaskContainer } from "./ui/svg-mask-effect";
 
 const HeroSection = () => {
   const { theme, systemTheme } = useTheme();

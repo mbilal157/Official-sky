@@ -6,12 +6,17 @@ import { useEffect, useState } from "react";
 
 export default function AboutUs() {
   const { theme, systemTheme } = useTheme();
-  const [resolvedTheme, setResolvedTheme] = useState("light");
+  const [resolvedTheme, setResolvedTheme] = useState<string>("light"); // always string
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    setResolvedTheme(theme === "system" ? systemTheme : theme || "light");
+
+    // safely resolve theme
+    const currentTheme =
+      theme === "system" ? systemTheme ?? "light" : theme ?? "light";
+
+    setResolvedTheme(currentTheme);
   }, [theme, systemTheme]);
 
   if (!mounted) {
