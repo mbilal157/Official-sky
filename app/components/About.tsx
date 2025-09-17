@@ -36,7 +36,7 @@ export default function AboutUs() {
       id="about"
       className={`relative py-16 px-6 md:px-12 transition-colors duration-300 ${
         resolvedTheme === "dark"
-          ? "bg-[url('/images/bg1.jpg')] bg-cover bg-center text-gray-100"
+          ? "bg-[url('/images/bg3.jpg')] bg-cover bg-center text-gray-100"
           : "bg-white text-gray-800"
       }`}
     >

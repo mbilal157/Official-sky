@@ -8,8 +8,7 @@ import AboutUs from "./components/AboutUs";
 
 export default function Home() {
   return (
-    <main className="pt-1">
-      {" "}
+    <>
       <HeroSection />
       <AboutUs />
       <FeaturesSection />
@@ -17,6 +16,6 @@ export default function Home() {
       <Portfolio />
       <ContactUs />
       <Footer />
-    </main>
+    </>
   );
 }

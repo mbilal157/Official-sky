@@ -23,7 +23,7 @@ const Footer = () => {
     <footer
       className={`py-12 text-gray-800 transition-colors duration-300 ${
         isDark
-          ? "bg-[url('/images/bg1.jpg')] bg-cover bg-center text-gray-100"
+          ? "bg-[url('/images/bg3.jpg')] bg-cover bg-center text-gray-100"
           : "bg-blue-50"
       }`}
     >
