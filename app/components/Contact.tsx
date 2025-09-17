@@ -1,3 +1,7 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import {
   Mail,
   Phone,
@@ -8,22 +12,52 @@ import {
 } from "lucide-react";
 
 export default function ContactUs() {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // avoid SSR/hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const resolvedTheme = mounted
+    ? theme === "system"
+      ? systemTheme ?? "light"
+      : theme ?? "light"
+    : "light";
+
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <section className="py-20 px-6 bg-white">
+    <section
+      className={`py-20 px-6 transition-colors duration-300 ${
+        isDark ? "bg-black text-gray-100" : "bg-white text-gray-800"
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
-        <h2 className="text-4xl font-bold text-center mb-4">Contact Us</h2>
+        <h2
+          className={`text-4xl font-bold text-center mb-4 ${
+            isDark ? "text-white" : ""
+          }`}
+        >
+          Contact Us
+        </h2>
 
         {/* Paragraph */}
-        <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">
+        <p
+          className={`${
+            isDark ? "text-gray-300" : "text-gray-600"
+          } text-center max-w-2xl mx-auto mb-16`}
+        >
           Get in touch with us for any inquiries or to discuss your next
           project. Our team is ready to provide you with the best creative
           solutions.
         </p>
 
-        {/* Content Section - Fixed to show two columns on large screens */}
+        {/* Content Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mx-4 lg:mx-10">
-          {/* Left Column - Contact Information */}
+          {/* Left Column */}
           <div className="space-y-8">
             {/* Email */}
             <div className="flex flex-row items-center md:items-start text-center gap-4 md:text-left">
@@ -31,8 +65,18 @@ export default function ContactUs() {
                 <Mail className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <h3 className="text-xl font-semibold">Email</h3>
-                <p className="text-gray-600 max-w-sm">
+                <h3
+                  className={`text-xl font-semibold ${
+                    isDark ? "text-white" : ""
+                  }`}
+                >
+                  Email
+                </h3>
+                <p
+                  className={`${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  } max-w-sm`}
+                >
                   skylineproduction@yahoo.com
                 </p>
               </div>
@@ -44,8 +88,20 @@ export default function ContactUs() {
                 <Phone className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <h3 className="text-xl font-semibold">Call us</h3>
-                <p className="text-gray-600 max-w-sm">+92 302 5070320</p>
+                <h3
+                  className={`text-xl font-semibold ${
+                    isDark ? "text-white" : ""
+                  }`}
+                >
+                  Call us
+                </h3>
+                <p
+                  className={`${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  } max-w-sm`}
+                >
+                  +92 302 5070320
+                </p>
               </div>
             </div>
 
@@ -55,28 +111,39 @@ export default function ContactUs() {
                 <MapPin className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <h3 className="text-xl font-semibold">Visit us</h3>
-                <p className="text-gray-600 max-w-sm">
+                <h3
+                  className={`text-xl font-semibold ${
+                    isDark ? "text-white" : ""
+                  }`}
+                >
+                  Visit us
+                </h3>
+                <p
+                  className={`${
+                    isDark ? "text-gray-300" : "text-gray-600"
+                  } max-w-sm`}
+                >
                   13 Street Sector II G1 Islamabad
                 </p>
               </div>
             </div>
 
-            {/* Follow Us Section */}
+            {/* Follow Us */}
             <div className="mt-12">
-              <h3 className="text-2xl font-semibold mb-6">Follow us on</h3>
+              <h3
+                className={`text-2xl font-semibold mb-6 ${
+                  isDark ? "text-white" : ""
+                }`}
+              >
+                Follow us on
+              </h3>
               <div className="flex gap-4">
-                {/* Instagram */}
                 <div className="p-3 bg-[#0098ff] rounded-xl w-fit text-white transition-transform duration-300 hover:rotate-12">
                   <Instagram className="w-6 h-6" />
                 </div>
-
-                {/* Facebook */}
                 <div className="p-3 bg-[#0098ff] rounded-xl w-fit text-white transition-transform duration-300 hover:rotate-12">
                   <Facebook className="w-6 h-6" />
                 </div>
-
-                {/* TikTok */}
                 <div className="p-3 bg-[#0098ff] rounded-xl w-fit text-white transition-transform duration-300 hover:rotate-12">
                   <MessageCircle className="w-6 h-6" />
                 </div>
@@ -84,52 +151,74 @@ export default function ContactUs() {
             </div>
           </div>
 
-          {/* Right Column - Contact Form */}
-          <div className="bg-blue-50 rounded-2xl p-8">
+          {/* Right Column - Form */}
+          <div
+            className={`${
+              isDark ? "bg-gray-900" : "bg-blue-50"
+            } rounded-2xl p-8`}
+          >
             <form className="space-y-6">
-              {/* Name Field */}
+              {/* Name */}
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-gray-700 font-medium mb-2"
+                  className={`block font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Name
                 </label>
                 <input
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 rounded-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0098ff]"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0098ff] transition-colors duration-150 ${
+                    isDark
+                      ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-700"
+                  }`}
                   placeholder="Your full name"
                 />
               </div>
 
-              {/* Email Field */}
+              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-gray-700 font-medium mb-2"
+                  className={`block font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0098ff]"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0098ff] transition-colors duration-150 ${
+                    isDark
+                      ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-700"
+                  }`}
                   placeholder="Your email address"
                 />
               </div>
 
-              {/* Service Type Field */}
+              {/* Service */}
               <div>
                 <label
                   htmlFor="service"
-                  className="block text-gray-700 font-medium mb-2"
+                  className={`block font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Service type
                 </label>
                 <select
                   id="service"
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0098ff]"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0098ff] transition-colors duration-150 ${
+                    isDark
+                      ? "bg-gray-800 border-gray-600 text-white"
+                      : "bg-white border-gray-300 text-gray-700"
+                  }`}
                 >
                   <option value="">Select a service</option>
                   <option value="web-development">Web Development</option>
@@ -143,23 +232,29 @@ export default function ContactUs() {
                 </select>
               </div>
 
-              {/* Message Field */}
+              {/* Message */}
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-gray-700 font-medium mb-2"
+                  className={`block font-medium mb-2 ${
+                    isDark ? "text-gray-300" : "text-gray-700"
+                  }`}
                 >
                   Message
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0098ff]"
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#0098ff] transition-colors duration-150 ${
+                    isDark
+                      ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-700"
+                  }`}
                   placeholder="Tell us about your project"
-                ></textarea>
+                />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <button
                 type="submit"
                 className="w-full bg-[#0098ff] text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-300"

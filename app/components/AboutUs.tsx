@@ -2,13 +2,40 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function AboutUs() {
   const router = useRouter();
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure we only render after hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <section className="relative py-16 px-6 md:px-12 bg-white text-[#131313]">
+        <div className="max-w-6xl mx-auto">
+          <div className="h-12 bg-gray-200 rounded w-1/3 mb-4"></div>
+          <div className="h-6 bg-gray-200 rounded w-2/3"></div>
+        </div>
+      </section>
+    );
+  }
+
+  const resolvedTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <section
       id="about"
-      className="relative py-16 px-6 md:px-12 bg-gray-50 text-gray-800"
+      className={`relative py-16 px-6 md:px-12 transition-colors duration-300 ${
+        resolvedTheme === "dark"
+          ? "bg-[#131313] text-gray-100"
+          : "bg-white text-[#131313]"
+      }`}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Side - Image */}
@@ -16,8 +43,8 @@ export default function AboutUs() {
           <Image
             src="/images/about.jpg"
             alt="About Skyline Production"
-            width={1000} // pick a width close to your design
-            height={400} // height to match aspect ratio
+            width={1000}
+            height={400}
             className="w-full h-[400px] object-cover transform group-hover:scale-110 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -40,7 +67,11 @@ export default function AboutUs() {
 
           <button
             onClick={() => router.push("/about")}
-            className="self-start px-6 py-2 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transition-all duration-300"
+            className={`self-start px-6 py-2 mt-2 rounded-full shadow-md transition-all duration-300 ${
+              resolvedTheme === "dark"
+                ? "bg-blue-500 hover:bg-blue-600 text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
           >
             Read More
           </button>

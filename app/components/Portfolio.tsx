@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const portfolioItems = [
   {
@@ -50,7 +51,7 @@ const portfolioItems = [
     category: "Social Media Design",
     title: "YouTube Thumbnails",
     subtitle: "Attention-grabbing thumbnails to boost clicks",
-    image: "/images/whyus.jpg",
+    image: "/images/thumbnail.jpg",
   },
   {
     id: 8,
@@ -78,6 +79,18 @@ const categories = [
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [filteredItems, setFilteredItems] = useState(portfolioItems);
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const resolvedTheme = mounted
+    ? theme === "system"
+      ? systemTheme ?? "light"
+      : theme ?? "light"
+    : "light";
 
   useEffect(() => {
     if (activeFilter === "All") {
@@ -89,14 +102,40 @@ export default function Portfolio() {
     }
   }, [activeFilter]);
 
+  if (!mounted) {
+    // Skeleton while waiting for theme resolution
+    return (
+      <section className="py-20 px-6 bg-white text-gray-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="h-10 bg-gray-200 rounded w-1/3 mb-6 mx-auto"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-56 bg-gray-200 rounded-xl"></div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-20 px-6 bg-white">
+    <section
+      className={`py-20 px-6 transition-colors duration-300 ${
+        resolvedTheme === "dark"
+          ? "bg-[url('/images/bg1.jpg')] bg-cover bg-center text-gray-100"
+          : "bg-white text-gray-800"
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <h2 className="text-4xl font-bold text-center mb-4">Our Portfolio</h2>
 
         {/* Paragraph */}
-        <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+        <p
+          className={`text-center max-w-2xl mx-auto mb-12 ${
+            resolvedTheme === "dark" ? "text-gray-300" : "text-gray-600"
+          }`}
+        >
           Explore our creative work across various domains. Each project
           represents our dedication to quality and innovation.
         </p>
@@ -110,6 +149,8 @@ export default function Portfolio() {
               className={`px-5 py-2 rounded-full border border-[#0098ff] transition-all duration-300 ${
                 activeFilter === category
                   ? "bg-[#0098ff] text-white"
+                  : resolvedTheme === "dark"
+                  ? "bg-transparent text-white hover:bg-[#0098ff]/20"
                   : "bg-white text-black hover:bg-blue-50"
               }`}
             >
@@ -123,28 +164,43 @@ export default function Portfolio() {
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="group overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer"
+              className={`group overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer
+        ${resolvedTheme === "dark" ? "bg-[#1e1d1d]" : "bg-white"}`}
             >
-              {/* Image Container - 75% of card */}
+              {/* Image */}
               <div className="h-56 overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
-                  width={600} // pick approximate natural size
-                  height={400} // required, can be overridden by Tailwind
+                  width={600}
+                  height={400}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
 
-              {/* Content Container - 25% of card */}
+              {/* Content */}
               <div className="p-5">
-                <h3 className="text-sm font-semibold text-gray-600 mb-1">
+                <h3
+                  className={`text-sm font-semibold mb-1 ${
+                    resolvedTheme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
                   {item.category}
                 </h3>
-                <h2 className="text-xl font-bold text-gray-700 transition-colors duration-300 group-hover:text-[#0098ff] mb-2">
+                <h2
+                  className={`text-xl font-bold mb-2 transition-colors duration-300 group-hover:text-[#0098ff] ${
+                    resolvedTheme === "dark" ? "text-gray-100" : "text-gray-700"
+                  }`}
+                >
                   {item.title}
                 </h2>
-                <p className="text-gray-500 text-sm">{item.subtitle}</p>
+                <p
+                  className={`text-sm ${
+                    resolvedTheme === "dark" ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
+                  {item.subtitle}
+                </p>
               </div>
             </div>
           ))}

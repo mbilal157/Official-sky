@@ -2,17 +2,42 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const resolvedTheme = mounted
+    ? theme === "system"
+      ? systemTheme ?? "light"
+      : theme ?? "light"
+    : "light";
+
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <footer className="bg-blue-50 text-gray-800 py-12">
+    <footer
+      className={`py-12 text-gray-800 transition-colors duration-300 ${
+        isDark
+          ? "bg-[url('/images/bg1.jpg')] bg-cover bg-center text-gray-100"
+          : "bg-blue-50"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* About Section */}
         <div>
-          <h3 className="text-xl font-bold mb-4 text-gray-700">
+          <h3
+            className={`text-xl font-bold mb-4 ${
+              isDark ? "text-white" : "text-gray-700"
+            }`}
+          >
             Skyline Production
           </h3>
-          <p className="text-gray-800">
+          <p className={`${isDark ? "text-gray-300" : "text-gray-800"}`}>
             Bringing creativity and technology together — Skyline Production is
             your partner for Videography, Design, Content, and Development.
           </p>
@@ -20,30 +45,61 @@ const Footer = () => {
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-xl font-bold mb-4 text-gray-700">Quick Links</h3>
+          <h3
+            className={`text-xl font-bold mb-4 ${
+              isDark ? "text-white" : "text-gray-700"
+            }`}
+          >
+            Quick Links
+          </h3>
           <ul className="space-y-2">
             <li>
-              <Link href="/" className="hover:text-gray-700">
+              <Link
+                href="/"
+                className={`${
+                  isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+                }`}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:text-gray-700">
+              <Link
+                href="/about"
+                className={`${
+                  isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+                }`}
+              >
                 About
               </Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-gray-700">
+              <Link
+                href="/services"
+                className={`${
+                  isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+                }`}
+              >
                 Services
               </Link>
             </li>
             <li>
-              <Link href="/portfolio" className="hover:text-gray-700">
+              <Link
+                href="/portfolio"
+                className={`${
+                  isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+                }`}
+              >
                 Portfolio
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-gray-700">
+              <Link
+                href="/contact"
+                className={`${
+                  isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+                }`}
+              >
                 Contact
               </Link>
             </li>
@@ -52,23 +108,46 @@ const Footer = () => {
 
         {/* Contact and Socials */}
         <div>
-          <h3 className="text-xl font-bold mb-4 text-gray-700">Contact Us</h3>
-          <p className="text-gray-700 mb-4">
+          <h3
+            className={`text-xl font-bold mb-4 ${
+              isDark ? "text-white" : "text-gray-700"
+            }`}
+          >
+            Contact Us
+          </h3>
+          <p className={`${isDark ? "text-gray-300" : "text-gray-700"} mb-4`}>
             Email: info@skylineproduction.com
           </p>
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-gray-700">
+            <a
+              href="#"
+              className={`${
+                isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+              }`}
+            >
               <Facebook />
             </a>
-            <a href="#" className="hover:text-gray-700">
+            <a
+              href="#"
+              className={`${
+                isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+              }`}
+            >
               <Instagram />
             </a>
-            <a href="#" className="hover:text-gray-700">
+            <a
+              href="#"
+              className={`${
+                isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+              }`}
+            >
               <Twitter />
             </a>
             <a
               href="mailto:info@skylineproduction.com"
-              className="hover:text-gray-700"
+              className={`${
+                isDark ? "hover:text-gray-300" : "hover:text-gray-700"
+              }`}
             >
               <Mail />
             </a>
@@ -77,7 +156,13 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+      <div
+        className={`mt-8 pt-6 text-center text-sm border-t ${
+          isDark
+            ? "border-gray-600 text-gray-400"
+            : "border-gray-700 text-gray-500"
+        }`}
+      >
         © {new Date().getFullYear()} Skyline Production. All rights reserved.
       </div>
     </footer>
