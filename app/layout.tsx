@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Navbar from "./components/NavBar";
 import { ThemeProvider } from "./components/theme-provider";
+import CursorCircle from "./components/ui/cusor";
 
 export const metadata: Metadata = {
   title: "The Skyline Production",
@@ -27,6 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange={false} // Enable transitions
           storageKey="skyline-theme" // Custom storage key
         >
+          <CursorCircle />
           <Navbar />
           {children}
         </ThemeProvider>
