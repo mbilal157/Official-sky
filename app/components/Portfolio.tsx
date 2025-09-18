@@ -27,7 +27,48 @@ const portfolioItems = [
     subtitle: "Engaging edits tailored for Instagram posts",
     image: "/images/whyus.jpg",
   },
-  // ... rest of your items
+  {
+    id: 4,
+    category: "Video Editing",
+    title: "Stories and Highlights",
+    subtitle: "Dynamic video stories and highlight reels",
+    image: "/images/whyus.jpg",
+  },
+  {
+    id: 5,
+    category: "Video Editing",
+    title: "Reels and Shorts",
+    subtitle: "Trendy reels and shorts with creative cuts",
+    image: "/images/whyus.jpg",
+  },
+  {
+    id: 6,
+    category: "Social Media Design",
+    title: "Social Media Campaign",
+    subtitle: "Complete design sets for impactful campaigns",
+    image: "/images/whyus.jpg",
+  },
+  {
+    id: 7,
+    category: "Social Media Design",
+    title: "YouTube Thumbnails",
+    subtitle: "Attention-grabbing thumbnails to boost clicks",
+    image: "/images/thumbnail.jpg",
+  },
+  {
+    id: 8,
+    category: "Social Media Design",
+    title: "Facebook and LinkedIn Banners",
+    subtitle: "Professional banners for social media branding",
+    image: "/images/whyus.jpg",
+  },
+  {
+    id: 9,
+    category: "Graphic Design",
+    title: "Business Cards",
+    subtitle: "Modern and professional business card designs",
+    image: "/images/whyus.jpg",
+  },
 ];
 
 const categories = [
@@ -148,12 +189,7 @@ export default function Portfolio() {
                 </CardItem>
 
                 {/* Image */}
-                <CardItem
-                  translateZ="100"
-                  rotateX={10}
-                  rotateZ={-5}
-                  className="mt-4"
-                >
+                <CardItem translateZ="100" className="mt-4">
                   <Image
                     src={item.image}
                     alt={item.title}
