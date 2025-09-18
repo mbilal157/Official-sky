@@ -22,9 +22,7 @@ const Footer = () => {
   return (
     <footer
       className={`py-12 text-gray-800 transition-colors duration-300 ${
-        isDark
-          ? "bg-[url('/images/bg3.jpg')] bg-cover bg-center text-gray-100"
-          : "bg-blue-50"
+        isDark ? "bg-black bg-cover bg-center text-gray-100" : "bg-blue-50"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -57,7 +55,9 @@ const Footer = () => {
               <Link
                 href="/"
                 className={`${
-                  isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                  isDark
+                    ? "text-white hover:text-gray-300"
+                    : "text-gray-800 hover:text-gray-500"
                 }`}
               >
                 Home
@@ -67,7 +67,9 @@ const Footer = () => {
               <Link
                 href="/about"
                 className={`${
-                  isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                  isDark
+                    ? "text-white hover:text-gray-300"
+                    : "text-gray-800 hover:text-gray-500"
                 }`}
               >
                 About
@@ -77,7 +79,9 @@ const Footer = () => {
               <Link
                 href="/services"
                 className={`${
-                  isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                  isDark
+                    ? "text-white hover:text-gray-300"
+                    : "text-gray-800 hover:text-gray-500"
                 }`}
               >
                 Services
@@ -87,7 +91,9 @@ const Footer = () => {
               <Link
                 href="/portfolio"
                 className={`${
-                  isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                  isDark
+                    ? "text-white hover:text-gray-300"
+                    : "text-gray-800 hover:text-gray-500"
                 }`}
               >
                 Portfolio
@@ -97,7 +103,9 @@ const Footer = () => {
               <Link
                 href="/contact"
                 className={`${
-                  isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                  isDark
+                    ? "text-white hover:text-gray-300"
+                    : "text-gray-800 hover:text-gray-500"
                 }`}
               >
                 Contact
@@ -122,7 +130,9 @@ const Footer = () => {
             <a
               href="#"
               className={`${
-                isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                isDark
+                  ? "text-white hover:text-gray-300"
+                  : "text-gray-600 hover:text-gray-800"
               }`}
             >
               <Facebook />
@@ -130,7 +140,9 @@ const Footer = () => {
             <a
               href="#"
               className={`${
-                isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                isDark
+                  ? "text-white hover:text-gray-300"
+                  : "text-gray-600 hover:text-gray-800"
               }`}
             >
               <Instagram />
@@ -138,7 +150,9 @@ const Footer = () => {
             <a
               href="#"
               className={`${
-                isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                isDark
+                  ? "text-white hover:text-gray-300"
+                  : "text-gray-600 hover:text-gray-800"
               }`}
             >
               <Twitter />
@@ -146,7 +160,9 @@ const Footer = () => {
             <a
               href="mailto:info@skylineproduction.com"
               className={`${
-                isDark ? "hover:text-gray-300" : "hover:text-gray-500"
+                isDark
+                  ? "text-white hover:text-gray-300"
+                  : "text-gray-600 hover:text-gray-800"
               }`}
             >
               <Mail />

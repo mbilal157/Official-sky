@@ -51,12 +51,11 @@ export default function AboutUs() {
         through innovation, design, and cutting-edge development.
       </p>
 
-      {/* Content Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center max-w-6xl mx-auto">
         {/* Left Column - Features */}
-        <div className="space-y-8">
+        <div className="space-y-6 ml-24">
           {/* Feature 1 */}
-          <div className="flex flex-row items-center md:items-start text-center gap-4 md:text-left">
+          <div className="flex flex-row items-start gap-3 text-left">
             <div className="p-4 bg-[#0098ff] rounded-2xl w-fit">
               <Briefcase className="w-8 h-8 text-white" />
             </div>
@@ -74,7 +73,7 @@ export default function AboutUs() {
           </div>
 
           {/* Feature 2 */}
-          <div className="flex flex-row items-center md:items-start text-center gap-4 md:text-left">
+          <div className="flex flex-row items-start gap-3 text-left">
             <div className="p-4 bg-[#0098ff] rounded-2xl w-fit">
               <Code className="w-8 h-8 text-white" />
             </div>
@@ -92,7 +91,7 @@ export default function AboutUs() {
           </div>
 
           {/* Feature 3 */}
-          <div className="flex flex-row items-center md:items-start text-center gap-4 md:text-left">
+          <div className="flex flex-row items-start gap-3 text-left">
             <div className="p-4 bg-[#0098ff] rounded-2xl w-fit">
               <Users className="w-8 h-8 text-white" />
             </div>
@@ -110,16 +109,16 @@ export default function AboutUs() {
         </div>
 
         {/* Right Column - Image with Badge */}
-        <div className="relative flex justify-center">
+        <div className="relative flex justify-center mr-22">
           <Image
             src="/images/whyus.jpg"
             alt="Features"
-            width={500}
-            height={300}
-            className="rounded-2xl h-96 w-80 ml-[-50px] shadow-lg object-cover"
+            width={600}
+            height={400}
+            className="rounded-2xl h-[26rem] w-[22rem] shadow-lg object-cover"
           />
           <div
-            className={`absolute bottom-0 left-0 -mb-5 -ml-5 px-6 py-4 rounded-2xl shadow-lg ${
+            className={`absolute left-6 bottom-0 translate-y-1/2 px-6 py-4 rounded-2xl shadow-lg ${
               resolvedTheme === "dark"
                 ? "bg-gray-800 text-blue-300"
                 : "bg-white text-[#0098ff]"

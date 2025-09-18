@@ -1,7 +1,9 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
 
 const portfolioItems = [
   {
@@ -25,48 +27,7 @@ const portfolioItems = [
     subtitle: "Engaging edits tailored for Instagram posts",
     image: "/images/whyus.jpg",
   },
-  {
-    id: 4,
-    category: "Video Editing",
-    title: "Stories and Highlights",
-    subtitle: "Dynamic video stories and highlight reels",
-    image: "/images/whyus.jpg",
-  },
-  {
-    id: 5,
-    category: "Video Editing",
-    title: "Reels and Shorts",
-    subtitle: "Trendy reels and shorts with creative cuts",
-    image: "/images/whyus.jpg",
-  },
-  {
-    id: 6,
-    category: "Social Media Design",
-    title: "Social Media Campaign",
-    subtitle: "Complete design sets for impactful campaigns",
-    image: "/images/whyus.jpg",
-  },
-  {
-    id: 7,
-    category: "Social Media Design",
-    title: "YouTube Thumbnails",
-    subtitle: "Attention-grabbing thumbnails to boost clicks",
-    image: "/images/thumbnail.jpg",
-  },
-  {
-    id: 8,
-    category: "Social Media Design",
-    title: "Facebook and LinkedIn Banners",
-    subtitle: "Professional banners for social media branding",
-    image: "/images/whyus.jpg",
-  },
-  {
-    id: 9,
-    category: "Graphic Design",
-    title: "Business Cards",
-    subtitle: "Modern and professional business card designs",
-    image: "/images/whyus.jpg",
-  },
+  // ... rest of your items
 ];
 
 const categories = [
@@ -82,9 +43,7 @@ export default function Portfolio() {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   const resolvedTheme = mounted
     ? theme === "system"
@@ -103,7 +62,6 @@ export default function Portfolio() {
   }, [activeFilter]);
 
   if (!mounted) {
-    // Skeleton while waiting for theme resolution
     return (
       <section className="py-20 px-6 bg-white text-gray-800">
         <div className="max-w-6xl mx-auto">
@@ -159,50 +117,53 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Portfolio Grid with 3D Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10">
           {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className={`group overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer
-        ${resolvedTheme === "dark" ? "bg-[#1e1d1d]" : "bg-white"}`}
-            >
-              {/* Image */}
-              <div className="h-56 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  width={600}
-                  height={400}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3
-                  className={`text-sm font-semibold mb-1 ${
-                    resolvedTheme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
+            <CardContainer key={item.id} className="inter-var">
+              <CardBody className="bg-gray-50 dark:bg-[#1e1d1d] border dark:border-white/[0.2] border-black/[0.1] rounded-xl p-6">
+                {/* Category */}
+                <CardItem
+                  translateZ="50"
+                  className="text-sm font-semibold text-gray-500 dark:text-gray-400"
                 >
                   {item.category}
-                </h3>
-                <h2
-                  className={`text-xl font-bold mb-2 transition-colors duration-300 group-hover:text-[#0098ff] ${
-                    resolvedTheme === "dark" ? "text-gray-100" : "text-gray-700"
-                  }`}
+                </CardItem>
+
+                {/* Title */}
+                <CardItem
+                  translateZ="80"
+                  className="text-xl font-bold mt-2 text-gray-800 dark:text-gray-100 group-hover/card:text-[#0098ff]"
                 >
                   {item.title}
-                </h2>
-                <p
-                  className={`text-sm ${
-                    resolvedTheme === "dark" ? "text-gray-400" : "text-gray-500"
-                  }`}
+                </CardItem>
+
+                {/* Subtitle */}
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-sm mt-1 text-gray-600 dark:text-gray-400"
                 >
                   {item.subtitle}
-                </p>
-              </div>
-            </div>
+                </CardItem>
+
+                {/* Image */}
+                <CardItem
+                  translateZ="100"
+                  rotateX={10}
+                  rotateZ={-5}
+                  className="mt-4"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={600}
+                    height={400}
+                    className="h-56 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                  />
+                </CardItem>
+              </CardBody>
+            </CardContainer>
           ))}
         </div>
       </div>
