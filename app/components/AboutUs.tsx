@@ -56,7 +56,7 @@ export default function AboutUs() {
         {/* Right Side - Content */}
         <div className="flex flex-col justify-center">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            The Sky Line Production
+            The SkyLine Production
           </h3>
           <p className="text-lg leading-relaxed mb-4">
             At Skyline Production, we believe in the power of creativity and

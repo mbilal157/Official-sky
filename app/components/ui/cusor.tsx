@@ -44,21 +44,21 @@ export default function CursorCircle() {
     <>
       {/* Outer circle */}
       <div
-        className="fixed pointer-events-none z-[99999] w-[40px] h-[40px] rounded-full"
+        className="fixed pointer-events-none z-[99999] w-[30px] h-[30px] rounded-full"
         style={{
           border: `2px solid ${color}`,
-          left: outerPos.x - 20,
-          top: outerPos.y - 20,
+          left: outerPos.x - 15,
+          top: outerPos.y - 15,
         }}
       />
 
       {/* Inner circle */}
       <div
-        className="fixed pointer-events-none z-[99999] w-[20px] h-[20px] rounded-full"
+        className="fixed pointer-events-none z-[99999] w-[15px] h-[15px] rounded-full"
         style={{
           backgroundColor: color,
-          left: innerPos.x - 10,
-          top: innerPos.y - 10,
+          left: innerPos.x - 7.5,
+          top: innerPos.y - 7.5,
         }}
       />
     </>
