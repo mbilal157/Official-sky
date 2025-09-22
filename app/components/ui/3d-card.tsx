@@ -79,16 +79,18 @@ export const CardContainer = ({
 export const CardBody = ({
   children,
   className,
+  ...rest
 }: {
   children: React.ReactNode;
   className?: string;
-}) => {
+} & React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       className={cn(
-        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
+        "h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]",
         className
       )}
+      {...rest} // 👈 spreads onClick, id, etc.
     >
       {children}
     </div>

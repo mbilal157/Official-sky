@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
 
@@ -11,7 +12,8 @@ const portfolioItems = [
     category: "Graphic Design",
     title: "Logos",
     subtitle: "Unique and memorable logo designs for brands",
-    image: "/images/whyus.jpg",
+    image: "/images/portfolio/logocard.png",
+    href: "/portfolio/graphic-design",
   },
   {
     id: 2,
@@ -19,13 +21,15 @@ const portfolioItems = [
     title: "Posters and Banners",
     subtitle: "Eye-catching posters and banners for promotions",
     image: "/images/whyus.jpg",
+    href: "/portfolio/graphic-design",
   },
   {
     id: 3,
     category: "Video Editing",
     title: "Instagram Post",
     subtitle: "Engaging edits tailored for Instagram posts",
-    image: "/images/whyus.jpg",
+    video: "/videos/reels.mp4",
+    href: "/portfolio/video-editing",
   },
   {
     id: 4,
@@ -33,6 +37,7 @@ const portfolioItems = [
     title: "Stories and Highlights",
     subtitle: "Dynamic video stories and highlight reels",
     image: "/images/whyus.jpg",
+    href: "/portfolio/video-editing",
   },
   {
     id: 5,
@@ -40,34 +45,39 @@ const portfolioItems = [
     title: "Reels and Shorts",
     subtitle: "Trendy reels and shorts with creative cuts",
     image: "/images/whyus.jpg",
+    href: "/portfolio/video-editing",
   },
   {
     id: 6,
     category: "Social Media Design",
     title: "Social Media Campaign",
     subtitle: "Complete design sets for impactful campaigns",
-    image: "/images/whyus.jpg",
+    image: "/images/portfolio/smc.jpg",
+    href: "/portfolio/social-media-design",
   },
   {
     id: 7,
     category: "Social Media Design",
     title: "YouTube Thumbnails",
     subtitle: "Attention-grabbing thumbnails to boost clicks",
-    image: "/images/thumbnail.jpg",
+    image: "/images/portfolio/thumbnail.jpg",
+    href: "/portfolio/social-media-design",
   },
   {
     id: 8,
     category: "Social Media Design",
     title: "Facebook and LinkedIn Banners",
     subtitle: "Professional banners for social media branding",
-    image: "/images/whyus.jpg",
+    image: "/images/portfolio/sm.jpg",
+    href: "/portfolio/social-media-design",
   },
   {
     id: 9,
     category: "Graphic Design",
-    title: "Business Cards",
-    subtitle: "Modern and professional business card designs",
-    image: "/images/whyus.jpg",
+    title: "Carousel",
+    subtitle: "Modern and professional Carousel designs",
+    image: "/images/portfolio/carosaul.jpg",
+    href: "/portfolio/graphic-design",
   },
 ];
 
@@ -83,6 +93,7 @@ export default function Portfolio() {
   const [filteredItems, setFilteredItems] = useState(portfolioItems);
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => setMounted(true), []);
 
@@ -162,7 +173,10 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10">
           {filteredItems.map((item) => (
             <CardContainer key={item.id} className="inter-var">
-              <CardBody className="bg-gray-50 dark:bg-[#1e1d1d] border dark:border-white/[0.2] border-black/[0.1] rounded-xl p-6">
+              <CardBody
+                onClick={() => router.push(item.href ?? "#")}
+                className="cursor-pointer bg-gray-50 dark:bg-[#1e1d1d] border dark:border-white/[0.2] border-black/[0.1] rounded-xl p-6 hover:shadow-lg transition"
+              >
                 {/* Category */}
                 <CardItem
                   translateZ="50"
@@ -188,15 +202,26 @@ export default function Portfolio() {
                   {item.subtitle}
                 </CardItem>
 
-                {/* Image */}
+                {/* Media */}
                 <CardItem translateZ="100" className="mt-4">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={600}
-                    height={400}
-                    className="h-56 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                  />
+                  {item.video ? (
+                    <video
+                      src={item.video}
+                      controls
+                      loop
+                      muted
+                      autoPlay
+                      className="h-56 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                    />
+                  ) : (
+                    <Image
+                      src={item.image as string}
+                      alt={item.title}
+                      width={600}
+                      height={400}
+                      className="h-56 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                    />
+                  )}
                 </CardItem>
               </CardBody>
             </CardContainer>

@@ -2,18 +2,38 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useTheme } from "next-themes";
+
+// ✅ Component that creates the cut-out resume icon
+function ResumeIconBox({ theme }: { theme: string }) {
+  const isDark = theme === "dark";
+
+  return (
+    <div
+      className={`w-32 h-20 rounded-2xl flex items-center justify-center ${
+        isDark ? "bg-white" : "bg-black"
+      }`}
+      style={{
+        WebkitMask: `url('/resume-icon.svg') center / 50% no-repeat`,
+        mask: `url('/resume-icon.svg') center / 50% no-repeat`,
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+        WebkitMaskSize: "50%",
+        maskSize: "50%",
+        backgroundColor: isDark ? "white" : "black",
+      }}
+    />
+  );
+}
 
 export default function LogoIntro({ onFinish }: { onFinish: () => void }) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [show, setShow] = useState(true);
 
-  // ensure theme is resolved on client to avoid mismatch/hiding
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   const resolvedTheme = mounted
     ? theme === "system"
@@ -25,18 +45,13 @@ export default function LogoIntro({ onFinish }: { onFinish: () => void }) {
     const timer = setTimeout(() => {
       setShow(false);
       onFinish();
-    }, 2900); // 3.8s intro (tweakable)
+    }, 2900);
     return () => clearTimeout(timer);
   }, [onFinish]);
 
-  // don't render animation until mounted (avoids SSR/client mismatch)
   if (!mounted) return null;
 
   const bgClass = resolvedTheme === "dark" ? "bg-black" : "bg-white";
-  const logoSrc =
-    resolvedTheme === "dark"
-      ? "/images/LogoWhite.png"
-      : "/images/LogoBlack.png";
 
   return (
     <AnimatePresence>
@@ -48,9 +63,8 @@ export default function LogoIntro({ onFinish }: { onFinish: () => void }) {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            // zoom & fade
             initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 50 }} // scale increased but reasonable
+            animate={{ opacity: 1, scale: 50 }}
             exit={{ opacity: 0 }}
             transition={{
               opacity: { duration: 1.2 },
@@ -59,14 +73,8 @@ export default function LogoIntro({ onFinish }: { onFinish: () => void }) {
             className="relative origin-center flex items-center justify-center"
             style={{ willChange: "transform, opacity" }}
           >
-            <Image
-              src={logoSrc}
-              alt="logo"
-              width={200}
-              height={200}
-              className="object-contain"
-              priority
-            />
+            {/* ✅ Instead of <Image />, we use ResumeIconBox */}
+            <ResumeIconBox theme={resolvedTheme} />
           </motion.div>
         </motion.div>
       )}
