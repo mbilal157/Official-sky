@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "motion/react";
 import { cn } from "../../../lib/utils";
 
@@ -23,79 +23,83 @@ export const MaskContainer = ({
     y: 0,
   });
 
-  const [atBoundary, setAtBoundary] = useState(false);
   const [wasInsideMask, setWasInsideMask] = useState(false);
   const [showHeroCursor, setShowHeroCursor] = useState(false);
   const [edgeProximity, setEdgeProximity] = useState(1); // 1 = not near edge, 0 = at edge
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const updateMousePosition = (e: MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  const updateMousePosition = useCallback(
+    (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    setMousePosition({ x, y });
+      setMousePosition({ x, y });
 
-    // Calculate distance to edges
-    const boundaryOffset = 50; // Increase this for smoother transition
-    const distanceToLeft = x;
-    const distanceToRight = rect.width - x;
-    const distanceToTop = y;
-    const distanceToBottom = rect.height - y;
+      // Calculate distance to edges
+      const boundaryOffset = 50; // Increase this for smoother transition
+      const distanceToLeft = x;
+      const distanceToRight = rect.width - x;
+      const distanceToTop = y;
+      const distanceToBottom = rect.height - y;
 
-    // Find the closest edge distance
-    const minDistance = Math.min(
-      distanceToLeft,
-      distanceToRight,
-      distanceToTop,
-      distanceToBottom
-    );
+      // Find the closest edge distance
+      const minDistance = Math.min(
+        distanceToLeft,
+        distanceToRight,
+        distanceToTop,
+        distanceToBottom
+      );
 
-    // Calculate proximity (1 = not near edge, 0 = at edge)
-    const proximity = Math.min(1, minDistance / boundaryOffset);
-    setEdgeProximity(proximity);
+      // Calculate proximity (1 = not near edge, 0 = at edge)
+      const proximity = Math.min(1, minDistance / boundaryOffset);
+      setEdgeProximity(proximity);
 
-    // Detect if touching boundary (with some threshold)
-    const isTouching = minDistance < 10;
-    setAtBoundary(isTouching);
+      // Detect if touching boundary (with some threshold)
+      const isTouching = minDistance < 10;
 
-    // Add the boundary detection for hero cursor here
-    if (isTouching && !showHeroCursor) {
-      window.dispatchEvent(new CustomEvent("heroBoundaryEnter"));
-      setShowHeroCursor(true);
-    } else if (!isTouching && showHeroCursor) {
-      window.dispatchEvent(new CustomEvent("heroBoundaryLeave"));
-      setShowHeroCursor(false);
-    }
+      // Add the boundary detection for hero cursor here
+      if (isTouching && !showHeroCursor) {
+        window.dispatchEvent(new CustomEvent("heroBoundaryEnter"));
+        setShowHeroCursor(true);
+      } else if (!isTouching && showHeroCursor) {
+        window.dispatchEvent(new CustomEvent("heroBoundaryLeave"));
+        setShowHeroCursor(false);
+      }
 
-    // Check if cursor is inside the mask area
-    const currentMaskSize = isHovered ? revealSize : size;
-    const maskX = Math.max(
-      0,
-      Math.min(x - currentMaskSize / 2, containerSize.width - currentMaskSize)
-    );
-    const maskY = Math.max(
-      0,
-      Math.min(y - currentMaskSize / 2, containerSize.height - currentMaskSize)
-    );
+      // Check if cursor is inside the mask area
+      const currentMaskSize = isHovered ? revealSize : size;
+      const maskX = Math.max(
+        0,
+        Math.min(x - currentMaskSize / 2, containerSize.width - currentMaskSize)
+      );
+      const maskY = Math.max(
+        0,
+        Math.min(
+          y - currentMaskSize / 2,
+          containerSize.height - currentMaskSize
+        )
+      );
 
-    const isInsideMaskArea =
-      x >= maskX &&
-      x <= maskX + currentMaskSize &&
-      y >= maskY &&
-      y <= maskY + currentMaskSize;
+      const isInsideMaskArea =
+        x >= maskX &&
+        x <= maskX + currentMaskSize &&
+        y >= maskY &&
+        y <= maskY + currentMaskSize;
 
-    // Emit custom events when entering/leaving mask area
-    if (isInsideMaskArea && !wasInsideMask) {
-      window.dispatchEvent(new CustomEvent("heroMaskEnter"));
-      setWasInsideMask(true);
-    } else if (!isInsideMaskArea && wasInsideMask) {
-      window.dispatchEvent(new CustomEvent("heroMaskLeave"));
-      setWasInsideMask(false);
-    }
-  };
+      // Emit custom events when entering/leaving mask area
+      if (isInsideMaskArea && !wasInsideMask) {
+        window.dispatchEvent(new CustomEvent("heroMaskEnter"));
+        setWasInsideMask(true);
+      } else if (!isInsideMaskArea && wasInsideMask) {
+        window.dispatchEvent(new CustomEvent("heroMaskLeave"));
+        setWasInsideMask(false);
+      }
+    },
+    [containerSize, isHovered, revealSize, size, showHeroCursor, wasInsideMask]
+  );
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -116,7 +120,7 @@ export const MaskContainer = ({
     if (!node) return;
     node.addEventListener("mousemove", updateMousePosition);
     return () => node.removeEventListener("mousemove", updateMousePosition);
-  }, [containerSize, isHovered, showHeroCursor]);
+  }, [updateMousePosition]);
 
   // Clean up event listeners on unmount
   useEffect(() => {
